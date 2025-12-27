@@ -10,14 +10,17 @@ if (
 ) {
   throw new Error(
     "\n\nThe frontend build will not work without an API key. Set the SHOPIFY_API_KEY environment variable when running the build command, for example:" +
-      "\n\nSHOPIFY_API_KEY=<your-api-key> npm run build\n"
+    "\n\nSHOPIFY_API_KEY=<your-api-key> npm run build\n"
   );
 }
 
 process.env.VITE_SHOPIFY_API_KEY = process.env.SHOPIFY_API_KEY;
 
+const backendPort = process.env.BACKEND_PORT || process.env.PORT || "3000";
+const frontendPort = process.env.FRONTEND_PORT || "5173";
+
 const proxyOptions = {
-  target: `http://127.0.0.1:${process.env.BACKEND_PORT}`,
+  target: process.env.NGROK_URL || `http://127.0.0.1:${backendPort}`,
   changeOrigin: false,
   secure: true,
   ws: false,
@@ -39,7 +42,7 @@ if (host === "localhost") {
   hmrConfig = {
     protocol: "wss",
     host: host,
-    port: process.env.FRONTEND_PORT,
+    port: frontendPort,
     clientPort: 443,
   };
 }
@@ -52,10 +55,9 @@ export default defineConfig({
   },
   server: {
     host: "localhost",
-    port: process.env.FRONTEND_PORT,
+    port: frontendPort,
     hmr: hmrConfig,
     proxy: {
-      "^/(\\?.*)?$": proxyOptions,
       "^/api(/|(\\?.*)?$)": proxyOptions,
     },
   },

@@ -9,7 +9,8 @@
     "dev": "shopify app dev",
     "info": "shopify app info",
     "generate": "shopify app generate",
-    "deploy": "shopify app deploy"
+    "deploy": "shopify app deploy",
+    "build:widget": "cd widget && npm install && npm run build && copy dist\\countdown-widget.js ..\\extensions\\countdown-timer-widget\\assets\\countdown-widget.js"
   },
   "dependencies": {},
   "author": "NITRO",

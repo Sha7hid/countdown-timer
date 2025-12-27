@@ -1,0 +1,45 @@
+{% schema %}
+{
+  "name": "Countdown Timer",
+  "target": "section",
+  "stylesheet": "countdown-timer.css",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Enable countdown timer",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Position",
+      "options": [
+        {
+          "value": "above-price",
+          "label": "Above Price"
+        },
+        {
+          "value": "below-title",
+          "label": "Below Title"
+        }
+      ],
+      "default": "above-price"
+    }
+  ]
+}
+{% endschema %}
+
+<div 
+  id="countdown-timer-widget" 
+  class="countdown-timer-container"
+  data-shop="{{ shop.permanent_domain }}"
+  data-product-id="{{ product.id }}"
+  data-enabled="{{ block.settings.enabled }}"
+  data-position="{{ block.settings.position }}"
+>
+  <div class="countdown-timer-loading">
+  </div>
+</div>
+
+<script src="{{ 'countdown-widget.js' | asset_url }}" defer></script>

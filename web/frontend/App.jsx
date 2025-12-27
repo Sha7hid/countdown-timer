@@ -15,11 +15,11 @@ export default function App() {
 
   return (
     <PolarisProvider>
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <QueryProvider>
           <NavMenu>
             <a href="/" rel="home" />
-            <a href="/pagename">{t("NavigationMenu.pageName")}</a>
+            <a href="/new">Create Timer</a>
           </NavMenu>
           <Routes pages={pages} />
         </QueryProvider>
